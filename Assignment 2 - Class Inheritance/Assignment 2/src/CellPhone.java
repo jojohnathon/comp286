@@ -1,3 +1,7 @@
+/* 
+ * Johnathon Zheng
+ * 8/31/23
+ */
 public class CellPhone extends Communicator{
     private long phoneNumber;
     private String owner;
@@ -29,12 +33,14 @@ public class CellPhone extends Communicator{
 
     @Override
     public void communicate() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'communicate'");
+        System.out.println("Calling from a " + getModel() + " with number " + phoneNumber);
     }
 
     public CellPhone(String model, String owner, long phoneNumber, boolean isSmartPhone) {
-        
+        setsModel(model);
+        this.owner = owner;
+        this.phoneNumber = phoneNumber;
+        this.isSmartPhone = isSmartPhone;
     }
     
 }
