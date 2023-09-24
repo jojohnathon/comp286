@@ -23,7 +23,10 @@ public class ProductDisplay<K,V,P> {
             new VideoFile("video2"));
     }
     
-    /*(f) TODO Contemplate: 
-
+    /*(f) Contemplate: 
+    Pros:
+    You do not need to worry about the type of objects you put into the display when creating it
+    Cons:
+    You cannot use class specific methods like open() unless you set an upper bound
     */
 }
