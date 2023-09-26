@@ -10,11 +10,6 @@ public class StringHelper {
 
     //recursive method that removes duplicate letters; keeps punctuation the same
     public static String cleanString(String input) {
-        /*
-         * call checkchar using charAt()
-         * if true: recurse (input.substring())
-         */
-
         //base case
         if (input.length() <= 1) {
             return input;
@@ -22,9 +17,8 @@ public class StringHelper {
 
         char currentChar = input.charAt(0);
         char nextChar = input.charAt(1);
-        //TODO add special check for exactly two duplicate letters
         if (checkChar(currentChar) && (currentChar == nextChar)) { //check for punctuation  //check next character if same
-            return /* currentChar + */cleanString(input.substring(2));
+            return cleanString(input.substring(1));
         } else {
             return currentChar + cleanString(input.substring(1));
         }
