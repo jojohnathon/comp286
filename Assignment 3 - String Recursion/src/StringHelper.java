@@ -1,6 +1,6 @@
 public class StringHelper {
     public static void main(String[] args) throws Exception {
-        String test1 = "aaabbbaccddee";
+        String test1 = "aaabbbacccdddeee";
         String test2 = "Hello, World!";
         System.out.println(test1);
         System.out.println(cleanString(test1));
@@ -22,9 +22,9 @@ public class StringHelper {
 
         char currentChar = input.charAt(0);
         char nextChar = input.charAt(1);
-
+        //TODO add special check for exactly two duplicate letters
         if (checkChar(currentChar) && (currentChar == nextChar)) { //check for punctuation  //check next character if same
-            return cleanString(input.substring(2));
+            return /* currentChar + */cleanString(input.substring(2));
         } else {
             return currentChar + cleanString(input.substring(1));
         }
