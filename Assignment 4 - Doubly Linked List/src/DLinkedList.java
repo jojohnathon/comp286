@@ -1,0 +1,133 @@
+import java.util.AbstractList;
+
+public class DLinkedList<E> extends AbstractList<E>{
+
+	private DNode<E> head;
+	private DNode<E> tail;
+	private int size;
+
+	private boolean isValidIndex(int index) {
+		return index >= 0 && index < size;
+	}
+
+	private DNode<E> getNode(int index) {
+		if (!isValidIndex(index)) {
+			throw new IndexOutOfBoundsException();
+		}
+
+		DNode<E> current = head;
+		for (int i = 0; i < index; i++) {
+			current = current.next;
+		}
+		return current;
+	}
+
+	public DLinkedList(){
+		head = new DNode<E>();
+		tail = head;
+		size = 0;
+	}
+
+	/* appends element to end of the list */
+	public boolean add(E e){
+		if (size == 0) { //special case if the list is empty
+			head = new DNode<>(e);
+			size++;
+			return true;
+		}
+
+		DNode<E> newNode = new DNode<>(e, tail, null);
+		// DNode<E> current = head;
+		// while(head.next != null) { //loop through list until the end
+		// 	current = current.next;
+		// }
+		// newNode.prev = current; //point tail pointer to new node 
+		// current.next = newNode; //add new node
+		size++;
+		tail.next = newNode;
+		tail = newNode;
+		return true;
+	}
+
+	/* insert element at the given index 
+	if the index is out of bounds throw an IndexOutOfBoundsException */
+	public void add(int index, E e){
+		if (isValidIndex(index)) {
+			throw new IndexOutOfBoundsException("index: " + index + "is greater than list size: " + size);
+		}
+
+		if (index == 0) {
+			DNode<E> newNode = new DNode<E>(e, null, head);
+			head.prev = newNode;
+			head = newNode;
+			size++;
+		} else if (index == size) {
+			add(e);
+		} else {
+			//TODO finsih metod
+			DNode<E> prev = getNode(index - 1);
+			DNode<E> next = new DNode<E>(e, prev, null);
+		}
+	}
+
+	public void clear(){
+		head.next = null;
+		tail = head;
+		size = 0;
+	}
+
+	/* get the data from the node at the given index 
+		if the index does not exist throw an IndexOutOfBoundsException */
+	public E get(int index){
+		return getNode(index).data;
+	}
+
+	/* remove the node at the given index from the list and return its data 
+		if the index does not exist throw an IndexOutOfBoundsException */
+	public E remove(int index){
+		
+		return null;
+	}
+
+	/* replace the contents at the given index with the data given
+		return the data that was previously at that index 
+		if the index does not exist throw an IndexOutOfBoundsException */
+	public E set(int index, E element){
+		E oldData = getNode(index).data;
+		getNode(index).data = element;
+		return oldData;
+	}
+
+	public int size(){
+		return size;
+	}
+
+	public String toString(){
+		
+		return "Incomplete toString method";
+	}
+
+	// internal class for single linking nodes
+	class DNode<E> {
+		E data;
+		DNode<E> next;
+		DNode<E> prev;
+
+		public DNode(){
+			this(null);
+		}
+
+		public DNode(E data){
+			this.data = data;
+			next = null;
+			prev = null;
+		}
+
+		public DNode(E data, DNode<E> prev, DNode<E> next){
+			this.data = data;
+			this.prev = prev;
+			this.next = next;
+		}
+	}
+	
+}
