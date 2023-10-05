@@ -1,3 +1,4 @@
+//johnathon zheng
 import java.util.AbstractList;
 
 public class DLinkedList<E> extends AbstractList<E>{
@@ -30,33 +31,32 @@ public class DLinkedList<E> extends AbstractList<E>{
 
 	/* appends element to end of the list */
 	public boolean add(E e){
+		DNode<E> newNode = new DNode<>(e);
 		if (size == 0) { //special case if the list is empty
-			head = new DNode<>(e);
+			head = newNode;
 			size++;
 			return true;
 		}
 
-		DNode<E> newNode = new DNode<>(e, tail, null);
-		// DNode<E> current = head;
-		// while(head.next != null) { //loop through list until the end
-		// 	current = current.next;
-		// }
-		// newNode.prev = current; //point tail pointer to new node 
-		// current.next = newNode; //add new node
+		DNode<E> current = head;
+		while(current.next != null) { //loop through list until the end
+			current = current.next;
+		}
+		current.next = newNode; //add new node
+		newNode.prev = current; //point tail pointer to new node 
 		size++;
-		tail.next = newNode;
-		tail = newNode;
 		return true;
 	}
 
 	/* insert element at the given index 
 	if the index is out of bounds throw an IndexOutOfBoundsException */
 	public void add(int index, E e){
-		if (isValidIndex(index)) {
-			throw new IndexOutOfBoundsException("index: " + index + "is greater than list size: " + size);
+		if (!isValidIndex(index)) {
+			throw new IndexOutOfBoundsException("index: " + index + " is greater than list size: " + size);
 		}
 
 		if (index == 0) {
+			//TODO test functionality
 			DNode<E> newNode = new DNode<E>(e, null, head);
 			head.prev = newNode;
 			head = newNode;
@@ -64,9 +64,15 @@ public class DLinkedList<E> extends AbstractList<E>{
 		} else if (index == size) {
 			add(e);
 		} else {
-			//TODO finsih metod
-			DNode<E> prev = getNode(index - 1);
-			DNode<E> next = new DNode<E>(e, prev, null);
+			//find previous and next node to insert between
+			DNode<E> prevNode = getNode(index - 1);
+			DNode<E> nextNode = getNode(index);
+			//create new node to insert and set pointers
+			DNode<E> newNode = new DNode<E>(e, nextNode.prev, prevNode.next);
+			//update old pointers 
+			prevNode.next = newNode;
+			nextNode.prev = newNode;
+			size++;
 		}
 	}
 
@@ -85,7 +91,7 @@ public class DLinkedList<E> extends AbstractList<E>{
 	/* remove the node at the given index from the list and return its data 
 		if the index does not exist throw an IndexOutOfBoundsException */
 	public E remove(int index){
-		
+		//TODO complete method
 		return null;
 	}
 
@@ -103,7 +109,7 @@ public class DLinkedList<E> extends AbstractList<E>{
 	}
 
 	public String toString(){
-		
+		//TODO complete method
 		return "Incomplete toString method";
 	}
 
