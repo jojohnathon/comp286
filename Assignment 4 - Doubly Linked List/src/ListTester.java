@@ -19,16 +19,21 @@ public class ListTester{
 		numList.add(12);
 		numList.add(3);
 		numList.add(0, 15);
+		numList.add(numList.size(), -1);
 
 		try {
-			numList.add(5, 45);
+			numList.add(6, 45);
 			System.out.println("ERROR - exception missed");
 		} catch (IndexOutOfBoundsException e) {
 			System.out.println("Correctly caught add out of bounds exception");
 		}
 
 		System.out.println(numList);
-		System.out.println("Expected list: 15, 12, 3");
+		System.out.println("Expected list: 15, 12, 3, -1");
+
+		numList.remove(1);
+		System.out.println(numList);
+		System.out.println("Expected list: 15, 3");
 
 		System.out.println();
 	}

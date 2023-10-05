@@ -56,7 +56,6 @@ public class DLinkedList<E> extends AbstractList<E>{
 		}
 
 		if (index == 0) {
-			//TODO test functionality
 			DNode<E> newNode = new DNode<E>(e, null, head);
 			head.prev = newNode;
 			head = newNode;
@@ -91,8 +90,26 @@ public class DLinkedList<E> extends AbstractList<E>{
 	/* remove the node at the given index from the list and return its data 
 		if the index does not exist throw an IndexOutOfBoundsException */
 	public E remove(int index){
-		//TODO complete method
-		return null;
+		if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
+		if (index == 0) { //removing the head node
+			E oldData = head.data;
+			head = head.next;
+			size--;
+			return oldData;
+		}
+
+		DNode<E> prev = getNode(index - 1);
+		E oldData = prev.next.data; //store about to be deleted data
+		prev.next = prev.next.next; //skip over selected node
+		size--;
+		return oldData;
+
+	}
+	
+	public boolean remove(Object element) {
+
+
+		return false;
 	}
 
 	/* replace the contents at the given index with the data given
@@ -109,8 +126,19 @@ public class DLinkedList<E> extends AbstractList<E>{
 	}
 
 	public String toString(){
-		//TODO complete method
-		return "Incomplete toString method";
+		//TODO test functionality
+		String list = "{";
+		DNode<E> current = head;
+		int i;
+		for (i = 0; i < size - 1; i++) {
+			list += (current.data.toString()) + ", ";
+			current = current.next;
+		}
+		
+		if (i < size) {
+			list += current.data.toString();
+		}
+		return list + "}";
 	}
 
 	// internal class for single linking nodes
