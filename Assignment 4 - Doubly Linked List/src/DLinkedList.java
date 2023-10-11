@@ -91,23 +91,41 @@ public class DLinkedList<E> extends AbstractList<E>{
 		if the index does not exist throw an IndexOutOfBoundsException */
 	public E remove(int index){
 		if (!isValidIndex(index)) throw new IndexOutOfBoundsException();
+		E oldData; //store data about to be deleted
 		if (index == 0) { //removing the head node
-			E oldData = head.data;
+			oldData = head.data;
 			head = head.next;
+			size--;
+			return oldData;
+		} else if (index == size) {
+			//TODO test remove last index
+			oldData = getNode(index).data;
+			DNode<E> prev = getNode(index - 1);
+			prev.next = null;
+			return oldData;
+
+		} else {
+			DNode<E> prev = getNode(index - 1);
+			oldData = prev.next.data; 
+			prev.next = prev.next.next; //skip over selected node
 			size--;
 			return oldData;
 		}
 
-		DNode<E> prev = getNode(index - 1);
-		E oldData = prev.next.data; //store about to be deleted data
-		prev.next = prev.next.next; //skip over selected node
-		size--;
-		return oldData;
-
 	}
 	
 	public boolean remove(Object element) {
-
+		//TODO test functionality
+		DNode<E> current = head;
+		while(current.next != null) {
+			int index = 0;
+			if (current.data.equals(element)) {
+				remove(index);
+				return true;
+			}
+			current = current.next; 
+			index++;
+		}
 
 		return false;
 	}
