@@ -114,21 +114,6 @@ public class DLinkedList<E> extends AbstractList<E>{
 
 	}
 	
-	public boolean remove(Object element) {
-		//TODO test functionality
-		DNode<E> current = head;
-		while(current.next != null) {
-			int index = 0;
-			if (current.data.equals(element)) {
-				remove(index);
-				return true;
-			}
-			current = current.next; 
-			index++;
-		}
-
-		return false;
-	}
 
 	/* replace the contents at the given index with the data given
 		return the data that was previously at that index 
