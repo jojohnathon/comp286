@@ -99,16 +99,19 @@ public class DLinkedList<E> extends AbstractList<E>{
 			return oldData;
 		} else if (index == size - 1) {
 			//TODO test remove last index
-			oldData = getNode(index).data;
-			DNode<E> prev = getNode(index - 1);
-			prev.next = null;
+			tail = getNode(index - 1);
+			oldData = tail.next.data;
+			tail.next = null;
+			// DNode<E> prev = getNode(index - 1);
+			// prev.next = null;
+
 			size--;
 			return oldData;
 
 		} else {
-			DNode<E> prev = getNode(index - 1);
-			oldData = prev.next.data; 
-			prev.next = prev.next.next; //skip over selected node
+			tail = getNode(index - 1);
+			oldData = tail.next.data; 
+			tail.next =	tail.next.next; //skip over selected node
 			size--;
 			return oldData;
 		}

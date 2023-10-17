@@ -31,9 +31,9 @@ public class ListTester{
 		System.out.println(numList);
 		System.out.println("Expected list: 15, 12, 3, -1");
 
-		numList.remove(3);
+		numList.remove(1);
 		System.out.println(numList);
-		System.out.println("Expected list: 15, 12, 3");
+		System.out.println("Expected list: 15, 3, -1");
 
 		numList.remove(2);
 		System.out.println(numList);
