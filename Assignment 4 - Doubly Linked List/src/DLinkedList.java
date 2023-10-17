@@ -60,7 +60,7 @@ public class DLinkedList<E> extends AbstractList<E>{
 			head.prev = newNode;
 			head = newNode;
 			size++;
-		} else if (index == size) {
+		} else if (index == size - 1) {
 			add(e);
 		} else {
 			//find previous and next node to insert between
@@ -97,11 +97,12 @@ public class DLinkedList<E> extends AbstractList<E>{
 			head = head.next;
 			size--;
 			return oldData;
-		} else if (index == size) {
+		} else if (index == size - 1) {
 			//TODO test remove last index
 			oldData = getNode(index).data;
 			DNode<E> prev = getNode(index - 1);
 			prev.next = null;
+			size--;
 			return oldData;
 
 		} else {

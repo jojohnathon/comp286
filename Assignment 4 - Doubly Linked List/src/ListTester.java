@@ -19,7 +19,7 @@ public class ListTester{
 		numList.add(12);
 		numList.add(3);
 		numList.add(0, 15);
-		numList.add(numList.size(), -1);
+		numList.add(2, -1);
 
 		try {
 			numList.add(6, 45);
@@ -31,7 +31,11 @@ public class ListTester{
 		System.out.println(numList);
 		System.out.println("Expected list: 15, 12, 3, -1");
 
-		numList.remove(1);
+		numList.remove(3);
+		System.out.println(numList);
+		System.out.println("Expected list: 15, 12, 3");
+
+		numList.remove(2);
 		System.out.println(numList);
 		System.out.println("Expected list: 15, 3");
 
