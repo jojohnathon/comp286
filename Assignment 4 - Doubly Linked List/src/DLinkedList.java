@@ -98,7 +98,6 @@ public class DLinkedList<E> extends AbstractList<E>{
 			size--;
 			return oldData;
 		} else if (index == (size - 1)) {
-			//TODO test remove last index
 			DNode<E> prev = getNode(index - 1);
 			oldData = prev.data;
 			prev.next = null;
