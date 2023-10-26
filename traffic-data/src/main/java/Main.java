@@ -3,6 +3,14 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -10,34 +18,38 @@ import java.util.Scanner;
 
 import javax.ws.rs.core.Response;
 
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.bean.CsvToBeanBuilder;
 import com.socrata.api.HttpLowLevel;
 import com.socrata.api.Soda2Consumer;
 import com.socrata.model.soql.SoqlQuery;
 
+import au.com.bytecode.opencsv.CSVReader;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        // Collisions wow = new Collisions();
-        Scanner sc;
         try {
-            sc = new Scanner(new File("traffic-data\\src\\main\\resources\\Data.csv"));
-            sc.useDelimiter(",");
-            while(sc.hasNext()) {
-                System.out.println(sc.next());
+            List<CollisionBean> reader = new CsvToBeanBuilder(new FileReader("traffic-data\\src\\main\\resources\\Data.csv"))
+                .withType(CollisionBean.class).build().parse();
+            String[] nextLine;
+            // List<String[]> data = reader.readAll();
+            // while((nextLine = reader.readNext()) != null) {
+            //     for (String token : nextLine) {
+            //         System.out.println(token);
+            //         System.out.println("\n");
+            //     }
+            // }
+            for (CollisionBean e : reader) {
+                System.out.println(e.getDrNum());
             }
-            sc.close();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        try {
-            // getData();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
         
+
     }
 
     public static void getData() throws Exception {
@@ -58,5 +70,7 @@ public class Main {
         System.out.println(paylod.length());
         // System.out.println(collisions.size());
     }
+
+    
     
 }
