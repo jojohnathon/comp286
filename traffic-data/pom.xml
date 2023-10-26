@@ -13,9 +13,25 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.16.0-rc1</version>
+        </dependency>
+
 
         <dependency>
             <groupId>com.socrata</groupId>
