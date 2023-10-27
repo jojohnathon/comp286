@@ -6,11 +6,11 @@ public class CollisionBean {
     @CsvBindByName(column = "DR Number")
     private String drNum;
 
-    @CsvBindByName(column = "Date Occured")
-    private Date date;
+    @CsvBindByName(column = "Date Occurred")
+    private String date;
 
-    @CsvBindByName(column = "Time Occured")
-    private Date time;
+    @CsvBindByName(column = "Time Occurred")
+    private String time;
 
     @CsvBindByName(column = "Victim Age")
     private int age;
@@ -28,11 +28,11 @@ public class CollisionBean {
         return drNum;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
@@ -50,5 +50,10 @@ public class CollisionBean {
 
     public String getLocation() {
         return location;
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 }

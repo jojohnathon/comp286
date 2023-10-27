@@ -1,16 +1,12 @@
 
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
-
 import javax.ws.rs.core.GenericType;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.socrata.api.Soda2Consumer;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Collisions {

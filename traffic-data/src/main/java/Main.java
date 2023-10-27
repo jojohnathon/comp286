@@ -26,9 +26,11 @@ public class Main {
             //         System.out.println("\n");
             //     }
             // }
-            for (CollisionBean e : reader) {
-                System.out.println(e.getDrNum());
-            }
+            System.out.println(reader.size());
+            System.out.println(reader.get(1).getDate());
+            // for (CollisionBean e : reader) {
+            //     System.out.println(e.getDrNum());
+            // }
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
