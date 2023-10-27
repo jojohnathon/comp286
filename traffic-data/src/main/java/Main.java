@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.core.Response;
 
@@ -32,8 +33,10 @@ public class Main {
         System.out.println("Hello world!");
         try {
             List<CollisionBean> reader = new CsvToBeanBuilder(new FileReader("traffic-data\\src\\main\\resources\\Data.csv"))
-                .withType(CollisionBean.class).build().parse();
-            String[] nextLine;
+                .withType(CollisionBean.class)
+                .build()
+                .parse();
+            // String[] nextLine;
             // List<String[]> data = reader.readAll();
             // while((nextLine = reader.readNext()) != null) {
             //     for (String token : nextLine) {
