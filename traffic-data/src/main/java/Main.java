@@ -1,13 +1,22 @@
 
 
+import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
 import javax.ws.rs.core.Response;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtils;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.statistics.HistogramDataset;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.socrata.api.HttpLowLevel;
@@ -16,31 +25,34 @@ import com.socrata.model.soql.SoqlQuery;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
         try {
             List<CollisionBean> reader = new CsvToBeanBuilder(new FileReader("traffic-data\\src\\main\\resources\\Data.csv"))
                 .withType(CollisionBean.class)
                 .build()
                 .parse();
-            // String[] nextLine;
-            // List<String[]> data = reader.readAll();
-            // while((nextLine = reader.readNext()) != null) {
-            //     for (String token : nextLine) {
-            //         System.out.println(token);
-            //         System.out.println("\n");
-            //     }
-            // }
-            System.out.println(reader.size());
-            System.out.println(reader.get(1).getDrNum());
-            // for (CollisionBean e : reader) {
-            //     System.out.println(e.getDrNum());
-            // }
             Map<String, CollisionBean> map = new HashMap<String, CollisionBean>(reader.size());
+            // DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            HistogramDataset dataset = new HistogramDataset();
+            
+            List<Double> age = new LinkedList<>();
             for (CollisionBean b : reader) {
-                map.put(b.getDrNum(), b);
+                // map.put(b.getDrNum(), b);
                 //TODO generate statistics
+                // dataset.addValue(4, b.getSex() + "", "Collisions");
+                if(b.getAge() > 0) age.add(Double.valueOf(b.getAge()));
             }
-            System.out.println(map.get("190319680").getAge());
+            double[] arr = new double[age.size()];
+            for (int i = 0; i < arr.length;i++) {
+                arr[i] = age.get(i);
+            }
+            dataset.addSeries("Collisions", arr, 100);
+
+            JFreeChart barChart = ChartFactory.createHistogram("", "Victim Age", "Collisions", dataset, PlotOrientation.VERTICAL, true, false, false);
+            File BarChart = new File( "traffic-data\\src\\main\\resources\\BarChart.jpeg");
+            ChartUtils.saveChartAsJPEG(BarChart, barChart, 640, 480);
+            // System.out.println(map.get("190319680").getDate());
+            // System.out.println(map.get("190319680").getTime());
+            
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
