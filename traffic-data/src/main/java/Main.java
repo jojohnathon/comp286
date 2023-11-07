@@ -1,8 +1,12 @@
 
 
 import java.io.FileReader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
+
 import javax.ws.rs.core.Response;
 
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -27,10 +31,16 @@ public class Main {
             //     }
             // }
             System.out.println(reader.size());
-            System.out.println(reader.get(1).getDate());
+            System.out.println(reader.get(1).getDrNum());
             // for (CollisionBean e : reader) {
             //     System.out.println(e.getDrNum());
             // }
+            Map<String, CollisionBean> map = new HashMap<String, CollisionBean>(reader.size());
+            for (CollisionBean b : reader) {
+                map.put(b.getDrNum(), b);
+                //TODO generate statistics
+            }
+            System.out.println(map.get("190319680").getAge());
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

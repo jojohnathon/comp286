@@ -1,4 +1,3 @@
-import java.util.Date;
 
 import com.opencsv.bean.CsvBindByName;
 
@@ -54,6 +53,6 @@ public class CollisionBean {
 
     @Override
     public String toString() {
-        return "";
+        return "ihi;h";
     }
 }
