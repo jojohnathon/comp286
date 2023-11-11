@@ -1,19 +1,47 @@
 package practice;
 
+import java.util.Arrays;
+
 public class Student {
     public static void doubleSelectionSort(int[] list) {
-        int max = list[0];
-        int min = list[0];
+
         for (int i = 0; i < list.length; i++) {
-            if (i > max) {
-                max = list[i];
-            } else if (i < min) {
-                min = list[i];
-            }
-            if (min != i) {
-                swap(list, i, min);
+            int minIndex = getMinIndex(list, i);
+            int maxIndex = getMaxIndex(list, i);
+            
+            if (minIndex != i) {
+                swap(list, i, minIndex);
+            } else if (maxIndex != i) {
+                swap(list, i, maxIndex);
             }
         }
+    }
+
+    public static void selectionSort(int[] list) {
+        for (int i = 0; i < list.length; i++) {
+            int minIndex = getMinIndex(list, i);
+            if (minIndex != i) {
+                swap(list, i, minIndex);
+            }
+        }
+    }
+
+    private static int getMinIndex(int[] list, int startIndex){
+        int minIndex = startIndex;
+        for (int i=startIndex; i<list.length; i++ ) {
+            if (list[i] < list[minIndex])
+                minIndex = i;
+        }
+        return minIndex;
+    }
+
+    private static int getMaxIndex(int[] list, int startIndex){
+        int maxIndex = startIndex;
+        for (int i=startIndex; i<list.length; i++ ) {
+            if (list[i] > list[maxIndex])
+                maxIndex = i;
+        }
+        return maxIndex;
     }
 
     public static void swap (int[] list, int i , int j) {
@@ -23,10 +51,12 @@ public class Student {
     }
 
     public static void main(String[] args) {
-        int[] arr = {1, 4, 0, -12, 5, 6, 7};
-        System.out.println(arr.toString());
+        int[] arr = {1, 4, 0, -9, 10};
+        System.out.println(Arrays.toString(arr));
         doubleSelectionSort(arr);
-        System.out.println("sorted: " + arr.toString());
+        System.out.println("double selection sorted: " + Arrays.toString(arr));
+        selectionSort(arr);
+        System.out.println("selection sort: " + Arrays.toString(arr));
     }
 }
 
