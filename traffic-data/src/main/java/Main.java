@@ -32,24 +32,24 @@ public class Main {
                 .parse();
             Map<String, CollisionBean> map = new HashMap<String, CollisionBean>(reader.size());
             // DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            HistogramDataset dataset = new HistogramDataset();
+            // HistogramDataset dataset = new HistogramDataset();
             
-            List<Double> age = new LinkedList<>();
+            // List<Double> age = new LinkedList<>();   
+            // double[] arr = new double[reader.size()];
             for (CollisionBean b : reader) {
-                // map.put(b.getDrNum(), b);
+                map.put(b.getDrNum(), b);
                 //TODO generate statistics
                 // dataset.addValue(4, b.getSex() + "", "Collisions");
-                if(b.getAge() > 0) age.add(Double.valueOf(b.getAge()));
+                // if(reader.get(i).getAge() > 0) arr[i] = (Double.valueOf(reader.get(i).getAge()));
             }
-            double[] arr = new double[age.size()];
-            for (int i = 0; i < arr.length;i++) {
-                arr[i] = age.get(i);
-            }
-            dataset.addSeries("Collisions", arr, 100);
+            // for (int i = 0; i < arr.length;i++) {
+            //     arr[i] = age.get(i);
+            // }
+            // dataset.addSeries("Collisions", arr, 100);
 
-            JFreeChart barChart = ChartFactory.createHistogram("", "Victim Age", "Collisions", dataset, PlotOrientation.VERTICAL, true, false, false);
-            File BarChart = new File( "traffic-data\\src\\main\\resources\\BarChart.jpeg");
-            ChartUtils.saveChartAsJPEG(BarChart, barChart, 640, 480);
+            // JFreeChart barChart = ChartFactory.createHistogram("", "Victim Age", "Collisions", dataset, PlotOrientation.VERTICAL, true, false, false);
+            // File BarChart = new File( "traffic-data\\src\\main\\resources\\BarChart.jpeg");
+            // ChartUtils.saveChartAsJPEG(BarChart, barChart, 640, 480);
             // System.out.println(map.get("190319680").getDate());
             // System.out.println(map.get("190319680").getTime());
             
