@@ -31,25 +31,39 @@ public class Main {
         //////
 
 
-        int[] time = new int[2400];
         try {
             List<CollisionBean> reader = new CsvToBeanBuilder(new FileReader("traffic-data\\src\\main\\resources\\Data.csv"))
                 .withType(CollisionBean.class)
                 .build()
                 .parse();
+            
+            
+            // List<CollisionBean> olderThan25 = reader.parallelStream().filter(person -> person.getAge() > 25).collect(Collectors.toList());
+            // System.out.println(olderThan25.size());
+            
+            
+            Map<String, CollisionBean> map = reader.parallelStream()
+                .filter(i -> i.getAge() > 0)
+                .collect(Collectors.toMap(CollisionBean::getDrNum,item -> item));
 
-    
-            List<CollisionBean> olderThan25 = reader.parallelStream().filter(person -> person.getAge() > 25).collect(Collectors.toList());
-            System.out.println(olderThan25.size());
 
-
-            Map<String, CollisionBean> map = reader.parallelStream().collect(Collectors.toMap(CollisionBean::getDrNum,item -> item));
-            map.forEach((k,v) -> time[v.getTime()] += 1);
+            int[] time = new int[2400];
+            int[] age = new int[100];
+            int[] gender = new int[2];
+            map.forEach((k,v) -> {
+                time[v.getTime()] += 1; 
+                age[v.getAge()] += 1;
+                if(v.getSex() == 'M') gender[0] += 1;
+                if(v.getSex() == 'F') gender[1] += 1;
+                // if(v.getAge() == 0) System.out.println(v.getDrNum());
+            });
+            System.out.println(graph(time));
+            System.out.println(graph(age));
+            System.out.println(graph(gender, 5000));
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-        System.out.println(graph(time));
 
 
         ///////////
@@ -57,20 +71,24 @@ public class Main {
         System.out.println("Total execution time: " + (endTime - startTime));
     }
 
-    public static String graph(int[] arr){
+    public static String graph(int[] arr, int scale){
         String str = "";
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] >= 100) {
+            if (arr[i] >= scale) {
                 str += i + " | ";
             }
-            for (int j = 0; j < (arr[i] / 100); j++) {
+            for (int j = 0; j < (arr[i] / scale); j++) {
                 str += "+";
             }
-            if (arr[i] >= 100) {
+            if (arr[i] >= scale) {
                 str += "\n";
             }
         }
         return str;
+    }
+
+    public static String graph(int[] arr){
+        return graph(arr, 100);
     }
 
 
