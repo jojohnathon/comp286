@@ -25,40 +25,29 @@ import com.socrata.model.soql.SoqlQuery;
 
 public class Main {
     public static void main(String[] args) {
+        int ageSum = 0;
+        final long startTime = System.currentTimeMillis();
         try {
             List<CollisionBean> reader = new CsvToBeanBuilder(new FileReader("traffic-data\\src\\main\\resources\\Data.csv"))
                 .withType(CollisionBean.class)
                 .build()
                 .parse();
             Map<String, CollisionBean> map = new HashMap<String, CollisionBean>(reader.size());
-            // DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            // HistogramDataset dataset = new HistogramDataset();
-            
-            // List<Double> age = new LinkedList<>();   
-            // double[] arr = new double[reader.size()];
+
             for (CollisionBean b : reader) {
                 map.put(b.getDrNum(), b);
                 //TODO generate statistics
-                // dataset.addValue(4, b.getSex() + "", "Collisions");
-                // if(reader.get(i).getAge() > 0) arr[i] = (Double.valueOf(reader.get(i).getAge()));
+                ageSum += b.getAge();
+                System.out.println(b.getTime());
             }
-            // for (int i = 0; i < arr.length;i++) {
-            //     arr[i] = age.get(i);
-            // }
-            // dataset.addSeries("Collisions", arr, 100);
-
-            // JFreeChart barChart = ChartFactory.createHistogram("", "Victim Age", "Collisions", dataset, PlotOrientation.VERTICAL, true, false, false);
-            // File BarChart = new File( "traffic-data\\src\\main\\resources\\BarChart.jpeg");
-            // ChartUtils.saveChartAsJPEG(BarChart, barChart, 640, 480);
-            // System.out.println(map.get("190319680").getDate());
-            // System.out.println(map.get("190319680").getTime());
-            
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        System.out.println(ageSum);
         
-
+        final long endTime = System.currentTimeMillis();
+        System.out.println("Total execution time: " + (endTime - startTime));
     }
 
     public static void getData() throws Exception {
