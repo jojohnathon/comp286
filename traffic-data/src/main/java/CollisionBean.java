@@ -9,7 +9,7 @@ public class CollisionBean {
     private String date;
 
     @CsvBindByName(column = "Time Occurred")
-    private String time;
+    private int time;
 
     @CsvBindByName(column = "Victim Age")
     private int age;
@@ -31,7 +31,7 @@ public class CollisionBean {
         return date;
     }
 
-    public String getTime() {
+    public int getTime() {
         return time;
     }
 

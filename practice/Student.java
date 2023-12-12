@@ -51,7 +51,7 @@ public class Student {
     }
 
     public static void main(String[] args) {
-        int[] arr = {1, 4, 0, -9, 10};
+        int[] arr = {1, 4, 0, -9, 3};
         System.out.println(Arrays.toString(arr));
         doubleSelectionSort(arr);
         System.out.println("double selection sorted: " + Arrays.toString(arr));
