@@ -32,20 +32,18 @@ public class Main {
 
 
         try {
-            List<CollisionBean> reader = new CsvToBeanBuilder(new FileReader("traffic-data\\src\\main\\resources\\Data.csv"))
+            List<CollisionBean> reader = new CsvToBeanBuilder(
+                new FileReader("traffic-data\\src\\main\\resources\\Data.csv"))
                 .withType(CollisionBean.class)
                 .build()
                 .parse();
-            
-            
-            // List<CollisionBean> olderThan25 = reader.parallelStream().filter(person -> person.getAge() > 25).collect(Collectors.toList());
-            // System.out.println(olderThan25.size());
-            
             
             Map<String, CollisionBean> map = reader.parallelStream()
                 .filter(i -> i.getAge() > 0)
                 .collect(Collectors.toMap(CollisionBean::getDrNum,item -> item));
 
+            // List<CollisionBean> olderThan25 = reader.parallelStream().filter(person -> person.getAge() > 25).collect(Collectors.toList());
+            // System.out.println(olderThan25.size());
 
             int[] time = new int[2400];
             int[] age = new int[100];
